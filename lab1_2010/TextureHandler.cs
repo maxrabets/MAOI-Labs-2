@@ -197,14 +197,15 @@ namespace lab1_2010
                 {
                     int i = k - j;
 
+                    if (table != null)
+                    {
+                        table.Rows[i].Cells[j].Style.BackColor = Color.Red;
+                    }
+
                     if (pixelArray[i, j] == currentBrightness)
                     {
                         primitiveLength++;
-                        if (table != null)
-                        {
-                            table.Rows[i].Cells[j].Style.BackColor = Color.Red;
-                        }
-                        if (j == 0)
+                        if (j == k)
                         {
                             countOfPrimitivesMatrix[currentBrightness, primitiveLength]++;
                             if (table != null && primitiveLength < 2)
@@ -216,15 +217,19 @@ namespace lab1_2010
                     else
                     {
                         countOfPrimitivesMatrix[currentBrightness, primitiveLength]++;
-                        if (table != null && primitiveLength < 2)
+                        if (table != null && primitiveLength < 2 && j != 0)
                         {
-                            table.Rows[i].Cells[j].Style.BackColor = Color.White;
+                            table.Rows[i + 1].Cells[j - 1].Style.BackColor = Color.White;
                         }
                         primitiveLength = 1;
                         currentBrightness = pixelArray[i, j];
-                        if(j == 0)
+                        if(j == k)
                         {
-                            countOfPrimitivesMatrix[pixelArray[i, j], primitiveLength]++;
+                            countOfPrimitivesMatrix[pixelArray[i, j], 1]++;
+                            if (table != null)
+                            {
+                                table.Rows[i].Cells[j].Style.BackColor = Color.White;
+                            }
                         }
                     }
                 }
@@ -236,49 +241,45 @@ namespace lab1_2010
                 for (int j = 0; j <= k; j++)
                 {
                     int i = k - j;
-                    if (pixelArray[pixelArray.GetLength(1) - j - 1, pixelArray.GetLength(1) - i - 1] == currentBrightness 
-                        )
+                    if (table != null)
+                    {
+                        table.Rows[pixelArray.GetLength(1) - j - 1]
+                            .Cells[pixelArray.GetLength(1) - i - 1].Style.BackColor = Color.Red;
+                    }
+                    if (pixelArray[pixelArray.GetLength(1) - j - 1, pixelArray.GetLength(1) - i - 1] == currentBrightness)
                     {
                         primitiveLength++;
-                        if (table != null)
-                        {
-                            table.Rows[pixelArray.GetLength(1) - j - 1].Cells[pixelArray.GetLength(1) - i - 1].Style.BackColor = Color.Red;
-                        }
                         if (j == k)
                         {
                             countOfPrimitivesMatrix[currentBrightness, primitiveLength]++;
                             if (table != null && primitiveLength < 2)
                             {
-                                table.Rows[pixelArray.GetLength(1) - j - 1].Cells[pixelArray.GetLength(1) - i - 1].Style.BackColor = Color.White;
+                                table.Rows[pixelArray.GetLength(1) - j - 1]
+                                    .Cells[pixelArray.GetLength(1) - i - 1].Style.BackColor = Color.White;
                             }
                         }
                     }
                     else
                     {
                         countOfPrimitivesMatrix[currentBrightness, primitiveLength]++;
-                        if (table != null && primitiveLength < 2)
+
+                        if (table != null && primitiveLength < 2 && j != 0)
                         {
-                            table.Rows[pixelArray.GetLength(1) - j - 1].Cells[pixelArray.GetLength(1) - i - 1].Style.BackColor = Color.White;
+                            table.Rows[pixelArray.GetLength(1) - (j - 1) - 1]
+                                .Cells[pixelArray.GetLength(1) - (i + 1) - 1].Style.BackColor = Color.White;
                         }
+
                         primitiveLength = 1;
                         currentBrightness = pixelArray[pixelArray.GetLength(1) - j - 1, pixelArray.GetLength(1) - i - 1];
+
                         if (j == k)
                         {
                             countOfPrimitivesMatrix[currentBrightness, 1]++;
-                        }
-                    }
-                }
-            }
-
-            if (table != null)
-            {
-                for (int i = 0; i < pixelArray.GetLength(1); i++)
-                {
-                    for (int j = 0; j < pixelArray.GetLength(0); j++)
-                    {
-                        if (table.Rows[i].Cells[j].Style.BackColor == Color.Red && i != pixelArray.GetLength(1) - 1 && j != 0)
-                        {
-                            table.Rows[i + 1].Cells[j - 1].Style.BackColor = Color.FromArgb(255, 1, 1);
+                            if (table != null)
+                            {
+                                table.Rows[pixelArray.GetLength(1) - j - 1]
+                                    .Cells[pixelArray.GetLength(1) - i - 1].Style.BackColor = Color.White;
+                            }
                         }
                     }
                 }

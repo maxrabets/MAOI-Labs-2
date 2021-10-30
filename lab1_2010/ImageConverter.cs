@@ -126,12 +126,12 @@ namespace lab1_2010
 
         public byte[,] ConvertGrayBmpToPixelArray(Bitmap colorBmp)
         {
-            byte[,] pixelArray = new byte[colorBmp.Width, colorBmp.Height];
+            byte[,] pixelArray = new byte[colorBmp.Height, colorBmp.Width];
             for (int i = 0; i < colorBmp.Width; i++)
             {
                 for (int j = 0; j < colorBmp.Height; j++)
                 {
-                    pixelArray[i, j] = colorBmp.GetPixel(i, j).B;
+                    pixelArray[j, i] = colorBmp.GetPixel(i, j).B;
                 }
             }
 
